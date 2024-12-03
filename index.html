@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Juego del Ahorcado</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <style>
+        /* Estilo general */
+        body {
+            background-color: #f8f9fa;
+            padding: 20px;
+        }
+
+        h1 {
+            background-color: powderblue;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        #stickman-container {
+            position: relative;
+            width: 350px;
+            /* Ajusta el tamaño del monigote */
+            height: 350px;
+            margin: 20px auto;
+            /* Centra el contenedor */
+            background-image: url("img/horca.png");
+        }
+
+        .stickman-part {
+            width: 50px;
+            height: auto;
+            position: absolute;
+            /* Posiciona las partes dentro del contenedor */
+            display: none;
+            /* Por defecto, las partes están ocultas */
+        }
+
+        /* Posiciones de las partes */
+        #cabeza {
+            top: 135px;
+            left: 155px;
+            display: block;
+        }
+
+        #cuerpo {
+            top: 167px;
+            left: 163px;
+        }
+
+        #brazo-izquierdo {
+            top: 167px;
+            left: 130px;
+        }
+
+        #brazo-derecho {
+            top: 167px;
+            left: 196px;
+        }
+
+        #pierna-izquierda {
+            top: 237px;
+            left: 157px;
+        }
+
+        #pierna-derecha {
+            top: 237px;
+            left: 190px;
+        }
+    </style>
+</head>
+
+<body class="bg-light p-4">
+    <div class="container text-center">
+        <h1>Juego del Ahorcado</h1>
+        <div class="mb-3">
+            <h3>Ingresa la traducción de: <span id="word"></span></h3>
+        </div>
+        <input type="text" id="translationInput" class="form-control mb-3" placeholder="Escribe la traducción">
+        <button class="btn btn-primary mb-3" onclick="checkTranslation()">Intentar</button>
+        <div id="stickman-container">
+            <img src="img/cabeza.png" id="cabeza" class="stickman-part">
+            <img src="img/cuerpo.png" id="cuerpo" class="stickman-part" style="width: 35px; height: auto;">
+            <img src="img/brazo_izquierdo.png" id="brazo-izquierdo" class="stickman-part"
+                style="width: 35px; height: auto;">
+            <img src="img/brazo_derecho.png" id="brazo-derecho" class="stickman-part"
+                style="width: 35px; height: auto;">
+            <img src="img/pierna_izquierda.png" id="pierna-izquierda" class="stickman-part"
+                style="width: auto; height: 55px;">
+            <img src="img/pierna_derecha.png" id="pierna-derecha" class="stickman-part"
+                style="width: auto; height: 55px;">
+        </div>
+
+        <p>Intentos fallidos: <span id="lives"></span></p>
+    </div>
+    <script>
+        const words = [
+            { english: "apple", spanish: "manzana" },
+            { english: "dog", spanish: "perro" },
+            { english: "house", spanish: "casa" },
+            { english: "pencil", spanish: "lapiz" },
+            { english: "pear", spanish: "pera" },
+            { english: "mouse", spanish: "raton" },
+            { english: "keyboard", spanish: "teclado" },
+            { english: "window", spanish: "ventana" },
+            { english: "book", spanish: "libro" },
+            { english: "car", spanish: "coche" },
+            { english: "tree", spanish: "arbol" },
+            { english: "table", spanish: "mesa" },
+            { english: "chair", spanish: "silla" },
+            { english: "phone", spanish: "telefono" },
+            { english: "sun", spanish: "sol" },
+            { english: "moon", spanish: "luna" },
+            { english: "star", spanish: "estrella" },
+            { english: "water", spanish: "agua" },
+            { english: "bread", spanish: "pan" },
+            { english: "butter", spanish: "mantequilla" },
+            { english: "cat", spanish: "gato" },
+            { english: "flower", spanish: "flor" },
+            { english: "shoes", spanish: "zapatos" },
+            { english: "school", spanish: "escuela" },
+            { english: "milk", spanish: "leche" },
+            { english: "computer", spanish: "computadora" }
+        ];
+
+
+        let currentWord;
+        let lives;
+        const maxLives = 6;
+
+        // Inicializa el juego
+        function initializeGame() {
+            currentWord = words[Math.floor(Math.random() * words.length)];
+            document.getElementById("word").innerText = currentWord.english;
+            lives = maxLives;
+            document.getElementById("lives").innerText = lives;
+            hideAllHangmanParts();
+        }
+
+        // Verifica la traducción
+        function checkTranslation() {
+            const userTranslation = document.getElementById("translationInput").value.toLowerCase().trim();
+            if (userTranslation === currentWord.spanish) {
+                alert("¡Correcto! Has ganado.");
+                initializeGame();
+            } else {
+                lives--;
+                document.getElementById("lives").innerText = lives;
+                showNextHangmanPart();
+                if (lives === 0) {
+                    setTimeout(() => {
+                        alert(`Has perdido. La traducción correcta era: ${currentWord.spanish}`);
+                        initializeGame();
+                    }, 500);
+                }
+            }
+        }
+
+        // Muestra la siguiente parte del monigote
+        function showNextHangmanPart() {
+            const parts = document.querySelectorAll(".stickman-part");
+            if (maxLives - lives - 1 < parts.length) {
+                parts[maxLives - lives - 1].style.display = "block";
+            }
+        }
+
+        // Oculta todas las partes del monigote
+        function hideAllHangmanParts() {
+            const parts = document.querySelectorAll(".stickman-part");
+            parts.forEach(part => part.style.display = "none");
+        }
+
+        // Inicializa el juego al cargar la página
+        window.onload = initializeGame;
+    </script>
+</body>
+
+</html>
