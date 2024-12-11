@@ -21,6 +21,7 @@ ayuda:
 ayuda: 	git branch -m <nombre>
 Inicializado repositorio Git vacío en /home/salas/Documentos/git/.git/
 ```
+## Codigo en python
 ```python
 class_names = ['airplane', 'automobile', 'bird', 'cat', 'deer',
                'dog', 'frog', 'horse', 'ship', 'truck']
