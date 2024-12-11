@@ -1,7 +1,7 @@
 # Comandos de git
 
 * ![Creacion de un repositorio](https://github.com/TadeoCastllo/Ahorcado/blob/main/comandos.md#comandos-de-git)
-* ![Codigo en python]()
+* ![Codigo en python](https://github.com/TadeoCastllo/Ahorcado/blob/main/comandos.md#codigo-en-python)
 * ![Imagen](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQyzGL-llljdhSbqyiWNiDq1Xj1KcOpGWHRQg&s)
 ## Creacion de un repositorio
 
